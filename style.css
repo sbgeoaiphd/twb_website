@@ -1,0 +1,102 @@
+/* The Wire Branch — site styles */
+
+:root {
+  --bg: #f4f4f2;
+  --text: #17181a;
+  --text-light: #6c6e72;
+  --accent: #2c3136;
+  --line: #d2d0ca;
+  --link: #4a5b66;
+  --link-hover: #1f2d36;
+  --mono: 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 18px; }
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Hero ── */
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem 3rem;
+}
+
+.wire-mark {
+  width: 64px;
+  height: auto;
+  color: var(--accent);
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  font-weight: normal;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.4rem;
+  color: var(--text);
+}
+
+.byline {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 1.6rem;
+}
+
+.tagline {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-light);
+  position: relative;
+  padding-top: 1.4rem;
+}
+
+.tagline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ── Footer ── */
+
+footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--text-light);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 600px) {
+  html { font-size: 16px; }
+  .hero { padding: 3rem 1.25rem 2rem; }
+  .hero h1 { font-size: 2rem; }
+  .wire-mark { width: 54px; margin-bottom: 2rem; }
+}
