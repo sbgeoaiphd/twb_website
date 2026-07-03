@@ -353,6 +353,11 @@ blockquote {
 }
 .colophon p { margin-bottom: 0.9rem; }
 .colophon p:last-child { margin-bottom: 0; }
+.colophon .credit {
+  font-size: 0.82rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
 .colophon .actions { justify-content: flex-start; }
 
 /* ─────────────────────────────────────────────────────────────
