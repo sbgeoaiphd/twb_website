@@ -99,16 +99,16 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 4.5rem 1.5rem 3rem;
+  padding: 2.4rem 1.5rem 1.6rem;
 }
 .wire-mark { width: 60px; height: auto; color: var(--accent); margin-bottom: 2.2rem; }
 .hero .cover {
-  width: 300px;
-  max-width: 72%;
+  width: 250px;
+  max-width: 62%;
   height: auto;
   border-radius: 2px;
-  box-shadow: 0 20px 44px rgba(43, 34, 24, 0.22), 0 4px 12px rgba(43, 34, 24, 0.12);
-  margin-bottom: 2.2rem;
+  box-shadow: 0 16px 38px rgba(43, 34, 24, 0.20), 0 3px 10px rgba(43, 34, 24, 0.12);
+  margin-bottom: 1.6rem;
 }
 .sr-only {
   position: absolute;
@@ -398,9 +398,8 @@ footer em { font-style: italic; }
 @media (max-width: 600px) {
   html { font-size: 16px; }
   :root { --read-size: 1.12rem; }
-  .hero { padding: 3.2rem 1.25rem 2rem; }
-  .hero h1 { font-size: 2.1rem; }
-  .wire-mark { width: 52px; margin-bottom: 1.8rem; }
+  .hero { padding: 1.8rem 1.25rem 1.4rem; }
+  .hero .cover { width: 210px; }
   .document { padding: 2.5rem 1.35rem 1.5rem; }
   nav.site { gap: 1rem; }
 }
