@@ -1,20 +1,36 @@
 #!/usr/bin/env python3
-"""Generate a placeholder 1200x630 social-share card (images/social-card.png).
-Temporary — replace with the real cover art when it exists. Re-run after edits.
+"""Build the web cover + social share card from the canonical cover art.
 
-    python3 _gen_social_card.py
+Outputs:
+  images/cover.jpg        web-optimised cover for the home hero
+  images/social-card.png  1200x630 OG card: cover art + title beside it
+
+Re-run if the cover art changes:  python3 _gen_social_card.py
 """
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from pathlib import Path
 
-W, H = 1200, 630
-BG = (23, 24, 26)        # near-black, matches --text
-FG = (244, 244, 242)     # paper --bg
-MUTED = (150, 152, 156)
-ACCENT = (184, 134, 11)  # the Strand ochre
+SITE = Path(__file__).resolve().parent
+COVER_SRC = Path("/Users/lgnd/Documents/cowork/fiction/the_wire_branch/"
+                 "cover/the_wire_branch_cover_canonical_v1.png")
+IMAGES = SITE / "images"
+IMAGES.mkdir(exist_ok=True)
 
-img = Image.new("RGB", (W, H), BG)
-d = ImageDraw.Draw(img)
+cover = Image.open(COVER_SRC).convert("RGB")
+
+# ── 1. web cover (hero) ──
+web_w = 900
+web = cover.resize((web_w, round(web_w * cover.height / cover.width)), Image.LANCZOS)
+web.save(IMAGES / "cover.jpg", "JPEG", quality=90, optimize=True, progressive=True)
+
+# ── 2. social card ──
+W, H = 1200, 630
+
+def sample(box):
+    return Image.open(COVER_SRC).convert("RGB").crop(box).resize((1, 1), Image.LANCZOS).getpixel((0, 0))
+
+bg = sample((820, 140, 1000, 320))   # open background, upper right — warm taupe
+DARK, MUTED, COPPER = (55, 46, 38), (110, 98, 84), (160, 104, 58)
 
 def font(paths, size):
     for p in paths:
@@ -24,43 +40,61 @@ def font(paths, size):
             continue
     return ImageFont.load_default()
 
-SERIF = ["/System/Library/Fonts/Supplemental/Georgia Bold.ttf",
-         "/System/Library/Fonts/Supplemental/Georgia.ttf",
-         "/Library/Fonts/Georgia.ttf"]
-MONO = ["/System/Library/Fonts/Menlo.ttc",
-        "/System/Library/Fonts/Supplemental/Courier New.ttf"]
+SERIF_B = ["/System/Library/Fonts/Supplemental/Georgia Bold.ttf"]
+SERIF_I = ["/System/Library/Fonts/Supplemental/Georgia Italic.ttf"]
+MONO = ["/System/Library/Fonts/Menlo.ttc"]
+f_title = font(SERIF_B, 66)
+f_author = font(MONO, 27)
+f_tag = font(SERIF_I, 30)
 
-f_title = font(SERIF, 92)
-f_by = font(MONO, 26)
-f_tag = font(SERIF, 30)
+# cover placed left, fit to height
+margin = 84
+ch = H - 2 * margin
+cw = round(ch * cover.width / cover.height)
+cx, cy = margin, margin
+cover_fit = cover.resize((cw, ch), Image.LANCZOS)
 
-def center(text, y, fnt, fill, tracking=0):
-    if tracking:
-        # manual letter-spacing
-        widths = [d.textlength(c, font=fnt) for c in text]
-        total = sum(widths) + tracking * (len(text) - 1)
-        x = (W - total) / 2
-        for c, w in zip(text, widths):
-            d.text((x, y), c, font=fnt, fill=fill)
-            x += w + tracking
+card = Image.new("RGBA", (W, H), bg + (255,))
+shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+ImageDraw.Draw(shadow).rounded_rectangle(
+    [cx - 10, cy + 6, cx + cw + 12, cy + ch + 16], radius=10, fill=(45, 35, 26, 120))
+card = Image.alpha_composite(card, shadow.filter(ImageFilter.GaussianBlur(18)))
+card.paste(cover_fit, (cx, cy))
+ImageDraw.Draw(card).rectangle([cx, cy, cx + cw - 1, cy + ch - 1], outline=(255, 255, 255, 70), width=1)
+
+d = ImageDraw.Draw(card)
+tx = cx + cw + 70
+
+def text_w(s, fnt, tr=0):
+    return d.textlength(s, font=fnt) + tr * (len(s) - 1)
+
+def draw_tracked(x, y, s, fnt, fill, tr=0):
+    for c in s:
+        d.text((x, y), c, font=fnt, fill=fill)
+        x += d.textlength(c, font=fnt) + tr
+
+# title, wrapped to fit the right column
+avail = W - tx - 70
+words, lines, cur = "The Wire Branch".split(), [], ""
+for w in words:
+    t = (cur + " " + w).strip()
+    if text_w(t, f_title) <= avail:
+        cur = t
     else:
-        w = d.textlength(text, font=fnt)
-        d.text(((W - w) / 2, y), text, font=fnt, fill=fill)
+        lines.append(cur); cur = w
+if cur:
+    lines.append(cur)
 
-# wire mark — a simple bent-wire glyph, scaled from the site's SVG path
-cx, top = W / 2, 118
-s = 1.9
-def P(x, y): return (cx + (x - 60) * s, top + (y - 10) * s)
-pts_main = [P(60,134), P(60,96), P(36,74), P(36,50), P(60,30), P(60,10)]
-pts_branch = [P(60,96), P(84,74), P(84,44)]
-d.line(pts_main, fill=FG, width=5, joint="curve")
-d.line(pts_branch, fill=FG, width=5, joint="curve")
+title_lh = 74
+block_h = len(lines) * title_lh + 30 + 34 + 26 + 40
+y = (H - block_h) // 2
+for ln in lines:
+    d.text((tx, y), ln, font=f_title, fill=DARK)
+    y += title_lh
+y += 24
+draw_tracked(tx, y, "S.J. BARRETT", f_author, MUTED, tr=6)
+y += 52
+d.text((tx, y), "Ex Dialogo cum Machina", font=f_tag, fill=COPPER)
 
-center("The Wire Branch", 386, f_title, FG)
-center("S.J. BARRETT", 506, f_by, MUTED, tracking=8)
-center("Ex Dialogo cum Machina", 556, f_tag, ACCENT)
-
-out = Path(__file__).resolve().parent / "images" / "social-card.png"
-out.parent.mkdir(exist_ok=True)
-img.save(out, "PNG")
-print("wrote", out)
+card.convert("RGB").save(IMAGES / "social-card.png", "PNG")
+print("wrote", IMAGES / "cover.jpg", "and", IMAGES / "social-card.png", "; bg", bg)

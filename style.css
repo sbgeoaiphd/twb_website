@@ -102,6 +102,21 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
   padding: 4.5rem 1.5rem 3rem;
 }
 .wire-mark { width: 60px; height: auto; color: var(--accent); margin-bottom: 2.2rem; }
+.hero .cover {
+  width: 300px;
+  max-width: 72%;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 20px 44px rgba(43, 34, 24, 0.22), 0 4px 12px rgba(43, 34, 24, 0.12);
+  margin-bottom: 2.2rem;
+}
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
 .hero h1 {
   font-size: 2.7rem;
   font-weight: normal;
