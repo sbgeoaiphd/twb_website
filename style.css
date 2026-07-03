@@ -103,8 +103,8 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
 }
 .wire-mark { width: 60px; height: auto; color: var(--accent); margin-bottom: 2.2rem; }
 .hero .cover {
-  width: 250px;
-  max-width: 62%;
+  width: 375px;
+  max-width: 78%;
   height: auto;
   border-radius: 2px;
   box-shadow: 0 16px 38px rgba(43, 34, 24, 0.20), 0 3px 10px rgba(43, 34, 24, 0.12);
@@ -399,7 +399,7 @@ footer em { font-style: italic; }
   html { font-size: 16px; }
   :root { --read-size: 1.12rem; }
   .hero { padding: 1.8rem 1.25rem 1.4rem; }
-  .hero .cover { width: 210px; }
+  .hero .cover { width: 315px; max-width: 88%; }
   .document { padding: 2.5rem 1.35rem 1.5rem; }
   nav.site { gap: 1rem; }
 }
