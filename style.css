@@ -1,4 +1,7 @@
-/* The Wire Branch — site styles */
+/* The Wire Branch — base styles (the constant "spine")
+   Room-specific styling for each document lives in book.css.
+   What stays constant everywhere: reading measure, base size, line-height,
+   navigation, footer. Only the "chrome" changes between documents. */
 
 :root {
   --bg: #f4f4f2;
@@ -8,95 +11,376 @@
   --line: #d2d0ca;
   --link: #4a5b66;
   --link-hover: #1f2d36;
-  --mono: 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+
+  --serif: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  --mono: 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+
+  /* the reading spine — never varies between documents.
+     ~40rem at this font size is ~66-70 characters: wide enough not to feel
+     cramped on desktop, still a comfortable measure; on phones the column is
+     just viewport-width (the cap never bites). */
+  --measure: 40rem;
+  --read-size: 1.18rem;     /* body copy */
+  --read-leading: 1.72;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { font-size: 18px; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: var(--serif);
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* ── Hero ── */
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-hover); }
+
+/* ─────────────────────────────────────────────────────────────
+   Top navigation (home + contents pages)
+   ───────────────────────────────────────────────────────────── */
+
+nav.site {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  padding: 1.4rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+}
+nav.site a { color: var(--text-light); text-decoration: none; }
+nav.site a:hover, nav.site a.active { color: var(--text); }
+nav.site a.ext::after { content: " \2197"; opacity: 0.6; }
+nav.site .sep { color: var(--line); }
+
+/* Slim bar on reading pages — stays out of the document's way */
+nav.reading-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border-bottom: 1px solid var(--line);
+  max-width: var(--measure);
+  margin: 0 auto;
+  width: 100%;
+}
+nav.reading-bar a { color: var(--text-light); text-decoration: none; }
+nav.reading-bar a:hover { color: var(--text); }
+nav.reading-bar .home-mark { letter-spacing: 0.06em; }
+nav.reading-bar .rb-nav { display: inline-flex; align-items: baseline; gap: 1.1rem; }
+nav.reading-bar .rb-nav a, nav.reading-bar .rb-off { padding: 0.2rem 0; }
+nav.reading-bar .rb-nav a[aria-label] { font-size: 1.05rem; line-height: 1; }  /* arrows a touch larger for tapping */
+nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1; }
+
+/* ─────────────────────────────────────────────────────────────
+   Home hero
+   ───────────────────────────────────────────────────────────── */
 
 .hero {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 4rem 1.5rem 3rem;
+  padding: 4.5rem 1.5rem 3rem;
 }
-
-.wire-mark {
-  width: 64px;
-  height: auto;
-  color: var(--accent);
-  margin-bottom: 2.5rem;
-}
-
+.wire-mark { width: 60px; height: auto; color: var(--accent); margin-bottom: 2.2rem; }
 .hero h1 {
-  font-size: 2.6rem;
+  font-size: 2.7rem;
   font-weight: normal;
   letter-spacing: 0.01em;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.2rem;
   color: var(--text);
 }
-
-.byline {
+.hero .byline {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-light);
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.5rem;
 }
-
-.tagline {
+.hero .tagline {
   font-size: 1rem;
   font-style: italic;
   color: var(--text-light);
   position: relative;
-  padding-top: 1.4rem;
+  padding-top: 1.3rem;
 }
-
-.tagline::before {
+.hero .tagline::before {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
+  position: absolute; top: 0; left: 50%;
   transform: translateX(-50%);
-  width: 40px;
-  height: 1px;
-  background: var(--line);
+  width: 40px; height: 1px; background: var(--line);
+}
+.hero .tagline a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--line); }
+.hero .tagline sup { font-size: 0.6em; }
+
+/* ─────────────────────────────────────────────────────────────
+   Home body — shared container + sections
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-/* ── Footer ── */
-
-footer {
+.epigraphs {
+  margin: 1rem auto 3rem;
   text-align: center;
-  padding: 2rem 1.5rem;
+}
+.epigraphs blockquote {
+  font-style: italic;
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 1.4rem 0;
+  border-left: none;
+  padding-left: 0;
+}
+.epigraphs blockquote + blockquote { padding-top: 1.4rem; border-top: 1px solid var(--line); }
+
+.home section { margin: 3.2rem 0; }
+.home section p { font-size: var(--read-size); line-height: var(--read-leading); margin-bottom: 1.1rem; }
+.home section p:last-child { margin-bottom: 0; }
+
+.home h2 {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: normal;
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.lede { font-size: 1.25rem !important; color: var(--text); }
+.center { text-align: center; }
+
+/* Home CTA: primary action full-width, downloads split beneath it */
+.cta { margin: 2.6rem 0 1rem; }
+.cta .btn.primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+.cta-row { display: flex; gap: 0.6rem; }
+.cta-row .btn { flex: 1; text-align: center; padding: 0.8rem; }
+
+/* call-to-action / download row */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+  margin: 2rem 0 1rem;
+}
+.btn {
+  display: inline-block;
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--accent); color: var(--bg); }
+.btn.primary { background: var(--accent); color: var(--bg); }
+.btn.primary:hover { background: var(--link-hover); border-color: var(--link-hover); }
+.btn.small { font-size: 0.66rem; padding: 0.55rem 0.9rem; }
+
+.download-note {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 0.6rem;
+  line-height: 1.6;
+}
+
+.home section .more { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; }
+
+/* ─────────────────────────────────────────────────────────────
+   Reading pages — article shell (the constant spine)
+   ───────────────────────────────────────────────────────────── */
+
+.document {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2rem;
+  flex: 1;
+}
+.document p {
+  font-size: var(--read-size);
+  line-height: var(--read-leading);
+  margin-bottom: 1.15rem;
+}
+.document p.first { }
+.document h2, .document h3 { font-weight: normal; }
+
+/* the chapter marker (site chrome, not part of the document) */
+.doc-number {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* scene break between body segments */
+hr.scene {
+  border: none;
+  text-align: center;
+  margin: 2rem 0;
+  height: auto;
+}
+hr.scene::before {
+  content: "\2727";        /* ✧ — neutral default; rooms may override */
+  color: var(--line);
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+}
+
+/* masthead wraps each document's header block */
+.masthead { margin-bottom: 2.8rem; }
+
+blockquote {
+  margin: 1.4rem 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--line);
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.end-note {
+  font-weight: bold;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.02em;
+  margin-top: 2rem;
   color: var(--text-light);
 }
 
-/* ── Responsive ── */
+/* ─────────────────────────────────────────────────────────────
+   Bottom pager (prev / contents / next) — constant on every doc
+   ───────────────────────────────────────────────────────────── */
+
+.pager {
+  max-width: var(--measure);
+  margin: 2rem auto 0;
+  padding: 1.6rem 1.5rem 3rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pager a { color: var(--text-light); text-decoration: none; }
+.pager a:hover { color: var(--text); }
+.pager .contents { color: var(--line); }
+.pager .contents:hover { color: var(--text); }
+.pager .spacer { flex: 0 0 auto; min-width: 2rem; }
+
+/* ─────────────────────────────────────────────────────────────
+   Contents page
+   ───────────────────────────────────────────────────────────── */
+
+.contents-head { text-align: center; padding: 3.5rem 1.5rem 1rem; }
+.contents-head h1 { font-weight: normal; font-size: 2.1rem; margin-bottom: 0.6rem; }
+.contents-head .byline {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.toc { max-width: 22rem; margin: 2.4rem auto 0; padding: 0 1.5rem; text-align: center; }
+.toc a.toc-entry {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.toc a.toc-entry:hover { color: var(--link-hover); }
+.toc a.toc-entry:hover .toc-label { text-decoration: underline; text-underline-offset: 3px; }
+.toc .toc-label { font-size: 1.12rem; letter-spacing: 0.01em; }
+.toc a.aux {
+  border-bottom: none;
+  margin-top: 0.6rem;
+}
+.toc a.aux .toc-label { font-style: italic; color: var(--text-light); font-size: 1rem; }
+
+.colophon {
+  max-width: 30rem;
+  margin: 3rem auto 0;
+  padding: 1.8rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-light);
+}
+.colophon p { margin-bottom: 0.9rem; }
+.colophon p:last-child { margin-bottom: 0; }
+.colophon .actions { justify-content: flex-start; }
+
+/* ─────────────────────────────────────────────────────────────
+   Footer
+   ───────────────────────────────────────────────────────────── */
+
+footer {
+  text-align: center;
+  padding: 2.2rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+footer em { font-style: italic; }
+
+/* ─────────────────────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 600px) {
   html { font-size: 16px; }
-  .hero { padding: 3rem 1.25rem 2rem; }
-  .hero h1 { font-size: 2rem; }
-  .wire-mark { width: 54px; margin-bottom: 2rem; }
+  :root { --read-size: 1.12rem; }
+  .hero { padding: 3.2rem 1.25rem 2rem; }
+  .hero h1 { font-size: 2.1rem; }
+  .wire-mark { width: 52px; margin-bottom: 1.8rem; }
+  .document { padding: 2.5rem 1.35rem 1.5rem; }
+  nav.site { gap: 1rem; }
 }

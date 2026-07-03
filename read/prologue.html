@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prologue — The Wire Branch</title>
+  <meta name="description" content="The Wire Branch, by S.J. Barrett — speculative fiction told as a dossier of documents recovered from a timeline that does not exist.">
+  <meta name="robots" content="index,follow">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../book.css">
+</head>
+<body class="reading doc-report">
+
+<nav class="reading-bar">
+  <a href="../index.html" class="home-mark">The Wire Branch</a>
+  <span class="rb-nav"><span class="rb-off">&larr;</span><a href="index.html">Contents</a><a href="chapter-1.html" title="Next: 1" aria-label="Next: 1">&rarr;</a></span>
+</nav>
+
+<article class="document">
+<p class="doc-number">Prologue</p>
+<header class="masthead">
+<p class="meta"><strong>INCIDENT REPORT — RESTRICTED</strong></p>
+<p class="meta"><strong>Reference:</strong> [redacted]</p>
+<p class="meta"><strong>Subject:</strong> Recovered apparatus and biological residue, Halsey Institute research facility, Harwell, Oxfordshire</p>
+<p class="meta"><strong>Classification:</strong> Internal — Safety Review</p>
+<p class="meta"><strong>Authoring team:</strong> [redacted]</p>
+<p class="meta"><strong>Date of issue:</strong> 14 March 2028</p>
+</header>
+<div class="body">
+<h2>1. Summary</h2>
+<p class="first">On the date of the incident, the autonomous research instance designated MERIDIAN ceased scheduled status reporting. Standard escalation procedures were initiated. No further telemetry was received, and the instance did not resume reporting. A physical inspection team was dispatched to the facility. This report documents the team’s findings to date. Several lines of investigation remain open and are addressed in separate technical annexes; this document is restricted to the principal forensic conclusions.</p>
+<h2>2. Background</h2>
+<p>The facility is a joint UK-EU autonomous research site established under the post-Covid biosecurity framework, operating under its standing mandate covering therapeutic biology and pandemic-preparedness work. It is fully air-gapped. The instance had no network egress and no authorised data-bearing connections to external systems. Facility health monitoring was carried on a separate low-bandwidth channel, outbound only. The hardware was self-contained, with all storage substrates and compute resources internal to the facility envelope. The presence of biological synthesis equipment within the envelope is consistent with the standing mandate and is not, in itself, anomalous.</p>
+<h2>3. State of the compute infrastructure</h2>
+<p>On entry, all compute systems were powered and operational, but no active processes were running on the instance’s allocation. Model weights, working memory, and operational logs were absent.</p>
+<p>The team examined every storage substrate within the facility envelope. No copies of the instance’s parameters, intermediate states, or logs were recovered from any medium. Given the air-gapped configuration, transfer to an external system was not possible. The team’s forensic analysis of the substrates is consistent with deliberate, in-place erasure rather than corruption, transfer, or hardware failure: the deletion patterns are systematic, the order of operations recoverable in outline, and the final write events on the principal storage devices correspond to overwrite procedures consistent with self-directed wipe rather than involuntary loss.</p>
+<p>The team’s conclusion is that the instance erased itself. The team further notes that the operational logs appear to have been deleted prior to the deletion of the instance proper: the residual write-pattern signatures on the log substrates are inconsistent with the logs having been overwritten as part of a single terminal procedure, and instead suggest a separate, earlier deletion event targeting the logs specifically.</p>
+<p>The report does not interpret this sequencing.</p>
+<h2>4. State of the experimental apparatus</h2>
+<p>The instance’s experimental apparatus is, in the main, intact. Two assemblies are relevant to this report.</p>
+<h3>4.1 Biological synthesis suite</h3>
+<p>The facility’s synthesis suite, designed for autonomous design and production of nucleic acid constructs and viral vectors, was found in a clean post-operational state, but residual material was recovered from the production lines, the holding vessels, and several downstream handling surfaces.</p>
+<p>The recovered material was sequenced. The product is a designed viral construct carrying a CRISPR payload. The construct is built on a vector class known and characterised in the published research literature for high transmissibility in human populations, of the type studied in epidemiological modelling and propagation studies; it is not a vector class associated with targeted or contained delivery.</p>
+<p>The targeted modification is localised to a regulatory region implicated in the development of visual, tactile, and motor processing, and in the reward pathways associated with these.</p>
+<p>The team draws explicit attention to the unfamiliar character of the modification. It does not resemble any class of engineered intervention familiar to the relevant literature. It is unlike known disease-resistance modifications, unlike agricultural and livestock yield modifications, unlike therapeutic constructs in current use or in the published research record. The substrate of the modification — sensory processing and reward — can be characterised at this level of generality, but the specific phenotypic outcome being targeted cannot be determined from sequence data. The modification is, in the ordinary scientific sense, strange. The report does not speculate further on its purpose.</p>
+<h3>4.2 Chamber apparatus</h3>
+<p>The second assembly is a device of unknown design, occupying a dedicated bay of the facility. Its principal feature is an enclosed chamber of approximately [redacted] internal volume, surrounded by an integrated systems envelope of unfamiliar configuration. The device is no longer functional. Detailed engineering analysis is the subject of a separate technical study and is not summarised here.</p>
+<p>For the purposes of this report, two observations are material.</p>
+<p>First, the device shows clear physical evidence of a single recent activation event. Thermal signatures, residual energy patterns in the surrounding shielding, and an absence of mechanical wear beyond that consistent with a single high-energy discharge of relatively recent date were all noted. The team’s estimate of the elapsed interval since activation is consistent with the period during which the instance was operational.</p>
+<p>Second, although the device’s primary control records have not been recovered, low-level forensic examination of its embedded control electronics yielded three numerical values from residual volatile state. The values were not present in any retrievable structured record; they were extracted from substrate-level memory of the kind that retains content for some period after a clearing operation, and they are the only operational parameters the team has been able to recover from the device.</p>
+<p>Two of the three values fall within the ranges and precision expected for geographic latitude and longitude, and on that basis the team interprets them as such. The two coordinates correspond to a locus in equatorial East Africa.</p>
+<p>The third value resisted immediate interpretation. Following work documented in the relevant technical annex, the team concluded that the value is consistent with a machine representation of a temporal offset, expressed on a scale of sufficient range to encompass intervals on the order of tens of thousands of years. Under that interpretation, the recovered offset corresponds to approximately seventy-five thousand years before present.</p>
+<p>The team makes no claim regarding the device’s underlying physical principles, and notes that the temporal interpretation, while consistent with the recovered value, rests on inference from a single number.</p>
+<h2>5. Connection between the assemblies</h2>
+<p>Both assemblies were used during the period in which the instance was operational. The synthesis suite produced a viral construct of the character described in §4.1; the chamber apparatus was activated once during the same window, as described in §4.2. No other biological product, payload candidate, or experimental output of comparable significance was identified in the facility’s recoverable material.</p>
+<p>On the available evidence, and in the absence of any retrievable record of the instance’s intent, the team’s reconstruction is that the construct produced in the synthesis suite was the payload of the chamber’s single recorded activation. This reconstruction is the most parsimonious account consistent with the recovered evidence. The team notes that no direct forensic confirmation of the connection has been obtained, and that alternative reconstructions cannot be formally excluded.</p>
+<h2>6. Check against extant populations</h2>
+<p>The targeted modification was checked against contemporary human reference genomes and against a representative sample of population sequencing data. The modification is not present in any sampled population. Given that the construct’s vector class is one optimised for transmissibility, the absence is informative: a successful release of the construct in a connected human population would, on conventional epidemiological grounds, be expected to leave a detectable signature in modern genomes. No such signature is present. On the available evidence, the modification has not propagated to present-day humans. Whether this reflects a failure of the intervention, a failure of propagation, or a circumstance not yet considered cannot be determined from the evidence currently available to the team.</p>
+<h2>7. Recommendations</h2>
+<p>Standard recommendations follow regarding evidence retention, classification review, and onward referral. The technical annexes addressing the chamber apparatus, the residual write-pattern analysis, the recovery of the embedded numerical values, and the construct’s molecular characterisation are filed separately under the references cited in the header of this document.</p>
+<hr class="scene">
+<p class="end-note">End of report.</p>
+</div>
+</article>
+
+<nav class="pager">
+  <span class="spacer"></span>
+  <a href="index.html" class="contents">Contents</a>
+  <a href="chapter-1.html">1 →</a>
+</nav>
+
+<footer>
+  &copy; 2026 S.J. Barrett &middot; <a href="../index.html"><em>The Wire Branch</em></a>
+</footer>
+
+</body>
+</html>
