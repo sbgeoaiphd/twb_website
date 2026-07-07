@@ -118,10 +118,11 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
   white-space: nowrap; border: 0;
 }
 .hero h1 {
-  font-size: 2.7rem;
+  font-size: 2.4rem;
   font-weight: normal;
+  font-style: italic;
   letter-spacing: 0.01em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.5rem;
   color: var(--text);
 }
 .hero .byline {
@@ -135,14 +136,6 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
 .hero .tagline {
   font-size: 1rem;
   color: var(--text-light);
-  position: relative;
-  padding-top: 1.3rem;
-}
-.hero .tagline::before {
-  content: "";
-  position: absolute; top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 40px; height: 1px; background: var(--line);
 }
 .hero .tagline a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--line); }
 .hero .tagline sup { font-size: 0.6em; }
