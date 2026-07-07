@@ -134,7 +134,6 @@ nav.reading-bar .rb-off { color: var(--line); font-size: 1.05rem; line-height: 1
 }
 .hero .tagline {
   font-size: 1rem;
-  font-style: italic;
   color: var(--text-light);
   position: relative;
   padding-top: 1.3rem;
